@@ -1,0 +1,33 @@
+HloModule xla_computation_dexp, entry_computation_layout={(f32[2]{0})->(f32[2]{0})}
+
+ENTRY main.29 {
+  Arg_0.1 = f32[2]{0} parameter(0)
+  slice.4 = f32[1]{0} slice(Arg_0.1), slice={[0:1]}
+  reshape.5 = f32[] reshape(slice.4)
+  sine.6 = f32[] sine(reshape.5)
+  slice.8 = f32[1]{0} slice(Arg_0.1), slice={[1:2]}
+  reshape.9 = f32[] reshape(slice.8)
+  cosine.10 = f32[] cosine(reshape.9)
+  subtract.12 = f32[] subtract(sine.6, cosine.10)
+  multiply.13 = f32[] multiply(subtract.12, subtract.12)
+  negate.15 = f32[] negate(multiply.13)
+  exponential.16 = f32[] exponential(negate.15)
+  negate.17 = f32[] negate(exponential.16)
+  constant.3 = f32[] constant(2)
+  multiply.14 = f32[] multiply(subtract.12, constant.3)
+  multiply.18 = f32[] multiply(negate.17, multiply.14)
+  negate.19 = f32[] negate(multiply.18)
+  negate.20 = f32[] negate(negate.19)
+  sine.11 = f32[] sine(reshape.9)
+  multiply.21 = f32[] multiply(negate.20, sine.11)
+  reshape.22 = f32[1]{0} reshape(multiply.21)
+  constant.2 = f32[] constant(0)
+  pad.23 = f32[2]{0} pad(reshape.22, constant.2), padding=1_0
+  cosine.7 = f32[] cosine(reshape.5)
+  multiply.24 = f32[] multiply(multiply.18, cosine.7)
+  reshape.25 = f32[1]{0} reshape(multiply.24)
+  pad.26 = f32[2]{0} pad(reshape.25, constant.2), padding=0_1
+  add.27 = f32[2]{0} add(pad.23, pad.26)
+  ROOT tuple.28 = (f32[2]{0}) tuple(add.27)
+}
+
